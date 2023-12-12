@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>	
+
+	<style>	
+		body {
+    		font-family: Arial, sans-serif;
+		}
+
+		#n4 #game-board td {
+    		width: 30px;
+    		height: 30px;
+    		border: 1px solid #ccc;
+    		text-align: center;
+    		vertical-align: middle;
+    		cursor: pointer;
+		}
+
+		#n4 #game-board td.clicked {
+		    background-color: red; 
+		}
+
+		#n4 #game-board td.green {
+		    background-color: green; 
+		}
+
+		#n5 {
+			margin-top: 50px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 5px;
+		}
+
+		#n5 span {
+			cursor: pointer;
+			padding: 10px 15px;
+			background: #dedede;
+		}
+
+		#n6 {
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		#n6 span {
+			user-select: none;
+			cursor: pointer;
+		}
+
+		#n6 ul {
+			padding: 0;
+			display: flex;
+			flex-wrap: wrap;
+			list-style: none;
+			gap: 5px;
+		}
+
+		#n6 ul li {
+			padding: 10px;
+			background: #dedede;
+		}
+
+		#n6 ul .current-day {
+			background: #8c97d0 !important;
+		}
+
+		#n7 {
+			margin-top: 50px;
+		}
+
+		#n8 {
+			margin-top: 50px;
+		}
+
+		#n10 {
+			margin-top: 50px;
+		}
+
+        #n10 #parent {
+            text-align: center;
+        }
+
+        #n10 #parent > * {
+            margin-bottom: 10px;
+        }
+
+        #n10 #timer {
+            font-size: 18px;
+        }
+
+        #n10 #text {
+            font-size: 17px;
+            font-style: italic;
+        }
+
+        #n10 .good-prediction {
+            color: green;
+        }
+
+        #n10 .bad-prediction {
+            color: red;
+        }
+
+        #n10 button {
+            padding: 5px 10px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        #n10 button:not(.active) {
+            display: none;
+        }
+
+		#n18 {
+			margin-top: 50px;
+		}
+
+		#n18 #input, #list {
+			display: inline-block;
+		}
+
+		#n18 #list {
+			padding: 0;
+			list-style-type: none;
+		}
+
+		#n18 #list span {
+			margin-right: 5px;
+		}
+
+		#n18 #list .remove, #list .mark {
+			color: blue;
+			cursor: pointer;
+		}
+
+		#n18 #list .remove:hover, #list .mark:hover {
+			text-decoration: underline;
+		}
+
+		#n18 #list .done .task {
+			text-decoration: line-through;
+		}
+
+		#n24 {
+			margin-top: 50px;
+		}
+
+		#n24 #parent {
+			margin: 0 auto;
+			width: 500px;
+		}
+
+		#n24 #form {
+			display: flex;
+			margin-bottom: 15px;
+		}
+		#n24 #form input {
+			padding: 8px;
+			width: 24%;
+			margin: 0 0.5% 10px 0.5%;
+		}
+		
+		#n24 h2 {
+			margin-top: 0;
+			margin-bottom: 7px;
+		}
+		
+		#n24 #table {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+		#n24 #table td, #table th {
+			padding: 8px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		#n24 #table td.remove {
+			color: blue;
+			cursor: pointer;
+			text-decoration: underline;
+		}
+		#n24 #table td.remove:hover {
+			text-decoration: none;
+		}
+
+		#n24 #result {
+			text-align: right;
+			margin-right: 10px;
+		}
+
+		#n30 {
+			margin-top: 50px;
+		}
+
+		#n30 .right {
+			border: 1px solid green;
+		}
+
+		#n30 .wrong {
+			border: 1px solid red;
+		}
+
+		#n41 {
+			margin-top: 50px;
+		}
+
+		#n41 #field td {
+      		width: 50px;
+      		height: 50px;
+      		border: 1px solid black;
+      		text-align: center;
+      		font-weight: bold;
+    	}
+
+		#n47 {
+			margin-top: 50px;
+		}
+
+		#n47 #field td {
+			width: 50px;
+			height: 50px;
+			border: 1px solid black;
+			text-align: center;
+			font-weight: bold;
+		}
+	  
+		#n47 .red {
+			background: red;
+		}
+	  
+		#n47 .green {
+			background: green;
+		}
+	
+		#n47 .blue {
+			background: blue;
+		}
+	
+		#n47 .win {
+			background: yellow; 
+		}
+	
+		#n47 #moves {
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+
+		#n52 {
+    		margin-top: 50px;
+		}
+
+		#n52 #parent {
+		    text-align: center;
+		}
+
+		#n52 #calendar {
+		    display: inline-block;
+		}
+
+		#n52 #calendar td, #calendar th {
+		    padding: 10px;
+		    border: 1px solid black;
+		    text-align: center;
+		}
+
+		#n52 .nav, #calendar .info {
+		    text-align: center;
+		}
+
+		#n52 a {
+		    color: blue;
+		    font-size: 25px;
+		    text-decoration: none;
+		}
+
+		#n52 a:hover {
+		    color: red;
+		}
+
+		#n52 .active {
+		    color: red;
+		}
+	</style>
+
+    <!-- 4 -->
+	<div id="n4">
+		<table id="game-board"></table>
+	</div>
+
+    <!-- 5 -->
+	<div id="n5">
+		<input type="text" id="inputField">
+	</div>	
+
+    <!-- 6 -->
+	<div id="n6">
+		<div id="navigation">
+			<span id="prevMonth" onclick="changeMonth(-1)">Предыдущий месяц</span>
+			<span id="nextMonth" onclick="changeMonth(1)">Следующий месяц</span>
+		</div>
+		<div id="calendar-header"></div>
+	</div>
+
+    <!-- 7 -->
+	<div id="n7">
+		<label for="tagInput">введите html тег:</label>
+		<input type="text" id="tagInput">
+		<div id="tagDescription"></div>
+	</div>
+
+    <!-- 8 -->
+    <div id="n8">
+        <input id="input" placeholder="Введите год и нажмите Enter">
+        <table id="table1"></table>
+    </div>
+
+	<!-- 9 -->
+	<div id="n9">
+
+	</div>
+
+    <!-- 10 -->
+    <div id="n10">
+        <div id="timer">?</div>
+        <div id="text">Предсказание будет здесь</div>
+        <button id="start" class="active" onclick="startTimer()">Узнать свою судьбу</button>
+        <button id="stop" onclick="stopTimer()">Получить предсказание</button>
+    </div>	
+
+	<!-- 15-17 -->
+	<div id="15">
+
+	</div>
+
+	<!-- 18-23 -->
+	<div id="n18">
+		<p>туду лист</p>
+		<input id="input"><br>
+		<ul id="list"></ul>
+	</div>
+
+	<!-- 24-29 -->
+	<div id="n24">
+		<div id="parent">
+			<div id="form">
+				<input id="name" placeholder="название">
+				<input id="price" placeholder="цена">
+				<input id="amount" placeholder="количество">
+				<input id="add" type="button" value="добавить">
+			</div>
+			
+			<h2>Таблица продуктов:</h2>
+			<table id="table">
+				<tr>
+					<th>название</th>
+					<th>цена</th>
+					<th>кол-во</th>
+					<th>сумма</th>
+					<th>удалить</th>
+				</tr>
+			</table>
+			<div id="result">
+				общий итог: <span id="total">0</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- 30-36 -->
+	<div id="n30">
+		<div id="test"></div>
+		<button id="button">проверить ответы</button>
+	</div>
+
+	<!-- 41-46 -->
+	<div id="n41">
+		<table id="field">
+			<tr>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			</tr>
+			<tr>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			</tr>
+			<tr>
+			  <td></td>
+			  <td></td>
+			  <td></td>
+			</tr>
+		  </table>
+	</div>
+
+	<!-- 47-51 -->
+	<div id="n47">
+		<p id="moves">Ходов: 0</p>
+		<table id="field"></table>
+	</div>
+
+	<!-- 52-62 -->
+	<div id="n52">
+		<div id="parent">
+			<div id="calendar">
+				<div class="info">Янв 2020</div>
+				<table>
+					<thead>
+						<tr>
+							<th>пн</th>
+							<th>вт</th>
+							<th>ср</th>
+							<th>чт</th>
+							<th>пт</th>
+							<th>сб</th>
+							<th>вс</th>
+						</tr>
+					</thead>
+					<tbody class="body"></tbody>
+				</table>
+				<div class="nav">
+					<a href="#" class="prev">←</a>
+					<a href="#" class="next">→</a>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+    <script src="app.js"></script>
+	
+</body>
+</html>
