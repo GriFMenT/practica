@@ -237,10 +237,6 @@ document.querySelector('#n8 #input').addEventListener('keydown', handleKeyDown);
 
 
 
-// 9
-
-
-
 // 10
 let predictions = [
 	{ 
@@ -306,6 +302,96 @@ function getRandomNumber(min, max) {
 
 
 // 15-17
+let field = document.querySelector('#n15 #field22');
+let message = document.querySelector('#n15 #message22');
+let cities = [];
+let currentPlayer = 1; 
+let allCities = ["Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Нижний Новгород", "Казань", "Челябинск", "Омск", "Самара", "Ростов-на-Дону", "Анапа", "Астрахань"];
+
+field.addEventListener('keydown', handleKeyDown);
+
+function handleKeyDown(event) {
+	if (event.key === "Enter") {
+    	event.preventDefault();
+    	let cityName = field.value.trim();
+
+    	if (isValidCity(cityName)) {
+    		if (isValidMove(cityName)) {
+    			cities.push(cityName);
+    			displayMessage(`Игрок ${currentPlayer}: "${cityName}" добавлен. Следующий ход.`);
+    			field.value = "";
+    			currentPlayer = (currentPlayer % 3) + 1;
+    			makeMove();
+    		} 
+
+			else {
+    			displayMessage("Неправильный ход. Город должен начинаться с последней буквы предыдущего города.");
+    		}
+    	} 
+
+		else {
+    		displayMessage("Город должен начинаться с буквы.");
+    	}
+	}
+}
+
+function isValidCity(city) {
+	return city.length > 0 && isNaN(city[0]);
+}
+
+function isValidMove(city) {
+	if (cities.length === 0) {		
+		return true; 
+	}
+
+	let lastCity = cities[cities.length - 1];
+	let lastLetter = lastCity.slice(-1).toUpperCase();
+
+	if (lastCity.endsWith("ь")) {
+  		lastLetter = lastCity[lastCity.length - 2].toUpperCase();
+  	}
+	return city.toUpperCase().startsWith(lastLetter);
+}
+
+function makeMove() {
+	switch (currentPlayer) {
+    	case 1:
+      	break;
+
+    	case 2:
+    	break;
+
+		case 3:
+      	makeRobotMove();
+      	break;
+	}
+}
+
+function makeRobotMove() {
+	let lastCity = cities[cities.length - 1];
+	let lastLetter = lastCity.slice(-1).toUpperCase();
+
+	if (lastCity.endsWith("ь")) {
+		lastLetter = lastCity[lastCity.length - 2].toUpperCase();
+	}
+
+	let availableCities = allCities.filter(city => !cities.includes(city) && city.toUpperCase().startsWith(lastLetter));
+
+	if (availableCities.length > 0) {
+		let robotCity = availableCities[Math.floor(Math.random() * availableCities.length)];
+		cities.push(robotCity);
+		displayMessage(`Робот: "${robotCity}". Следующий ход.`);
+		currentPlayer = 1; 
+	} 
+
+  	else {
+  		displayMessage("Победа! Робот не может найти подходящий город. Вы выиграли!");
+  	}
+}
+
+function displayMessage(text) {
+	message.textContent = text;
+}
 
 
 
